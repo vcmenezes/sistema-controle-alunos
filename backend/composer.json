@@ -1,17 +1,24 @@
 {
-    "name": "vinicius/sistema-controle-alunos",
-    "description": "Sistema de controle de alunos de uma escola",
-    "type": "project",
-    "authors": [
-        {
-            "name": "Vinicius Menezes",
-            "email": "vicmen22@gmail.com"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        }
+  "name": "vinicius/sistema-controle-alunos",
+  "description": "Sistema de controle de alunos de uma escola",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Vinicius Menezes",
+      "email": "vicmen22@gmail.com"
     }
+  ],
+  "require": {
+    "ext-pdo": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "core/"
+    },
+    "files": [
+      "core/helpers/helpers.php"
+    ]
+  }
 }
