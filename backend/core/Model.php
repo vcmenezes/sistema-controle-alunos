@@ -127,7 +127,10 @@ abstract class Model
             $sql = "INSERT INTO {$this->table} (" . implode(', ', array_keys($newContent)) . ') VALUES (' . implode(',', array_values($newContent)) . ');';
         }
         if (self::$connection) {
-            return self::$connection->exec($sql);
+            $db = self::$connection->prepare($sql);
+            $db->execute($newContent);
+            $lastId = self::$connection->lastInsertId();
+            return self::find($lastId);
         }
 
         throw new RuntimeException("Não há conexão com Banco de dados!");
@@ -135,7 +138,7 @@ abstract class Model
 
     /**
      * @param $id
-     * @return mixed|PDO
+     * @return array
      */
     public static function find($id): array
     {
@@ -150,7 +153,8 @@ abstract class Model
         if (self::$connection) {
             $result = self::$connection->query($sql);
             if ($result) {
-                return $result->fetch(PDO::FETCH_ASSOC);
+                $res = $result->fetch(PDO::FETCH_ASSOC);
+                return $res !== false ? $res : [];
             }
         }
 
@@ -168,6 +172,7 @@ abstract class Model
 
             throw new RuntimeException("Não há conexão com Banco de dados!");
         }
+        throw new RuntimeException("Id não especificado");
     }
 
     public static function all(string $filter = '', int $limit = 0, int $offset = 0): array

@@ -2,43 +2,31 @@
 
 namespace Core;
 
-use Exception;
-
 class App
 {
     protected Request $request;
     protected Router $router;
     protected Response $response;
 
-    public function __construct(Request $request)
+    public function __construct()
     {
-        $this->router = new Router();
-        $this->request = $request;
-        $this->response = new Response();
-        $this->response->setRequest($this->request);
+        $this->router = router();
+        $this->request = request();
+        $this->response = response();
     }
 
-    /**
-     * @return $this
-     * @throws Exception
-     */
-    public function find(): App
+    public function find()
     {
         if ($this->request) {
             $route = $this->router->find($this->request->method(), $this->request);
             if ($route) {
-//                $this->response->setContent($route->dispatch());
-                $this->response->json($route->dispatch());
+                $result = $route->dispatch();
+                if ($result instanceof Response) {
+                    return $result->send();
+                }
+                return $result;
             }
         }
-        return $this;
-    }
-
-    public function send(): ?Response
-    {
-        if ($this->response) {
-            return $this->response->send();
-        }
-        return null;
+        return $this->response->setError('Rota não encontrada')->setStatus(404)->send();
     }
 }

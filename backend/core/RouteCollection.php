@@ -90,7 +90,7 @@ class RouteCollection
     {
         $values = [];
         $val = explode('/', array_shift($data));
-        if (preg_match("/[A-Za-z0-9]+/", $pattern, $maches)) {
+        if (preg_match("/[A-Za-z0-9]+/", $pattern, $matches)) {
             $pattern = explode('/', str_replace(["/^", "$/", "\\"], '', $pattern));
             $index = 0;
             foreach ($pattern as $piece) {

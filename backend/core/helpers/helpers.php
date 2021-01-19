@@ -1,9 +1,21 @@
 <?php
 
 use Core\Request;
+use Core\Response;
+use Core\Route;
+use Core\Router;
 
-// TODO não ficar retornando nova instancia toda vez, usar singleton
 function request(): Request
 {
-    return new Request;
+    return Request::getInstance();
+}
+
+function response(): Response
+{
+    return Response::getInstance();
+}
+
+function router(): Router
+{
+    return Route::getRouter();
 }

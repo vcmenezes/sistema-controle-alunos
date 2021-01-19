@@ -8,6 +8,7 @@ use JsonException;
 
 class Response
 {
+    private static ?Response $responseClass = NULL;
     protected array $headers = [];
     protected Request $request;
     protected string $content;
@@ -79,13 +80,21 @@ class Response
         511 => 'Network Authentication Required',
     ];
 
-    public function __construct($content = '', $status = 200, $headers = [], $charset = 'UTF-8')
+    private function __construct($content = '', $status = 200, $headers = [], $charset = 'UTF-8')
     {
         $this->setHeaders($headers);
         $this->setContent($content);
         $this->setStatus($status);
         $this->setVersion();
         $this->charset = $charset;
+    }
+
+    public static function getInstance($content = '', $status = 200, $headers = [], $charset = 'UTF-8'): Response
+    {
+        if (self::$responseClass === NULL) {
+            self::$responseClass = new Response($content, $status, $headers, $charset);
+        }
+        return self::$responseClass;
     }
 
     public function setRequest(Request $request): Response
@@ -223,6 +232,14 @@ class Response
         $this->sendHeaders();
         $this->sendContent();
         return $this;
+    }
+
+    public function setError(string $message): Response
+    {
+        $data = [
+            'error' => $message
+        ];
+        return $this->json($data);
     }
 
     /**

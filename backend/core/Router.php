@@ -55,13 +55,10 @@ class Router
         return $this->route = null;
     }
 
-    /**
-     * @return false|mixed
-     */
     public function dispatch()
     {
         if ($this->route === null) {
-            return false;
+            return null;
         }
 
         try {

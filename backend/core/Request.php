@@ -4,8 +4,9 @@ namespace Core;
 
 use JsonException;
 
-class Request
+final class Request
 {
+    private static ?Request $requestClass = NULL;
     protected $base;
     protected $uri;
     protected string $method;
@@ -16,13 +17,26 @@ class Request
      * Request constructor.
      * @throws JsonException
      */
-    public function __construct()
+    private function __construct()
     {
         $this->base = $_SERVER['REQUEST_URI'];
         $this->uri = $_REQUEST['URI'] ?? '/';
         $this->method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
         $this->setRequest();
+    }
+
+    private function __clone()
+    {
+
+    }
+
+    public static function getInstance(): Request
+    {
+        if (self::$requestClass === NULL){
+            self::$requestClass = new Request();
+        }
+        return self::$requestClass;
     }
 
     /**
@@ -41,7 +55,7 @@ class Request
             case 'put':
             case 'delete':
             case 'options':
-            $this->request = (array)json_decode(file_get_contents('php://input'), TRUE, 512, JSON_THROW_ON_ERROR);
+                $this->request = (array)json_decode(file_get_contents('php://input'), TRUE, 512, JSON_THROW_ON_ERROR);
         }
     }
 

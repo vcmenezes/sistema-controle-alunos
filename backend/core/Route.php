@@ -10,7 +10,7 @@ final class Route
     {
     }
 
-    protected static function getRouter(): Router
+    public static function getRouter(): Router
     {
         if (empty(self::$router)) {
             self::$router = new Router;
