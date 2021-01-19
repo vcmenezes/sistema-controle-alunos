@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use Exception;
+
 class App
 {
     protected Request $request;
@@ -15,6 +17,10 @@ class App
         $this->response = response();
     }
 
+    /**
+     * @return Response|Router|false|mixed|null
+     * @throws Exception
+     */
     public function find()
     {
         if ($this->request) {

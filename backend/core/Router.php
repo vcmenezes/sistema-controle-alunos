@@ -77,7 +77,7 @@ class Router
 
             throw new RuntimeException("Declaração de rota incorreta");
         } catch (Exception $e) {
-            return $e->getMessage();
+            throw $e;
         }
     }
 }

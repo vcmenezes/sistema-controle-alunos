@@ -110,7 +110,7 @@ abstract class Model
         return $newContent;
     }
 
-    public function save()
+    public function save(): array
     {
         $newContent = $this->convertContent();
 
