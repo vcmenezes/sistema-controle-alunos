@@ -8,7 +8,7 @@ use RuntimeException;
 
 abstract class Model
 {
-    private static PDO $connection;
+    private static ?PDO $connection = NULL;
     private array $content = [];
     protected ?string $table = NULL;
     protected ?string $idField = NULL;

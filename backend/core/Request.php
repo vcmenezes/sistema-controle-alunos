@@ -33,7 +33,7 @@ final class Request
 
     public static function getInstance(): Request
     {
-        if (self::$requestClass === NULL){
+        if (self::$requestClass === NULL) {
             self::$requestClass = new Request();
         }
         return self::$requestClass;
@@ -57,6 +57,11 @@ final class Request
             case 'options':
                 $this->request = (array)json_decode(file_get_contents('php://input'), TRUE, 512, JSON_THROW_ON_ERROR);
         }
+    }
+
+    public function getRequest(): array
+    {
+        return $this->request;
     }
 
     public function uri(): string
