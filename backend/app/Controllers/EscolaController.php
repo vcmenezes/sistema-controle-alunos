@@ -68,6 +68,7 @@ class EscolaController
      */
     public function totalAluno(?int $id): Response
     {
+        // TODO - Arrumar a lógica aqui
         $escola = $this->checkIfExist(Escola::class, $id);
         if ($escola instanceof Response) {
             return $escola;

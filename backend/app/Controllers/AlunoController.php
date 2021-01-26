@@ -67,7 +67,7 @@ class AlunoController
 
         for ($i = 0, $iMax = count($alunoTurmas); $i < $iMax; ++$i) {
             $turma = Turma::find($alunoTurmas[$i]['id_turma']);
-            $turmas[$i] = $turma->toArray();
+            $turmas[$i] = $turma ? $turma->toArray() : null;
         }
 
         return response()->json($turmas)->setStatus(200);

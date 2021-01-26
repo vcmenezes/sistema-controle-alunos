@@ -135,6 +135,7 @@ class TurmaController
 
     public function delete(int $id): Response
     {
+        // TODO - Verificar se existem alunos matriculados na turma antes da exclusão
         $turma = $this->checkIfExist(Turma::class, $id);
         if ($turma instanceof Response) {
             return $turma;

@@ -2,6 +2,7 @@
 
 use App\Controllers\AlunoController;
 use App\Controllers\EscolaController;
+use App\Controllers\EstudaApiController;
 use App\Controllers\TurmaController;
 use Core\Route;
 
@@ -58,3 +59,6 @@ Route::get('alunos/{id_aluno}/turmas', [AlunoController::class, 'showTurma']);
 // Remove um aluno de uma turma
 Route::delete('alunos/{id_aluno}/turmas/{id_turma}', [AlunoController::class, 'deleteTurma']);
 
+// Integração API
+Route::get('integracao/cep/{cep}', [EstudaApiController::class, 'cep']);
+Route::get('integracao/escolas', [EstudaApiController::class, 'escola']);
