@@ -1,0 +1,728 @@
+{
+	"info": {
+		"_postman_id": "60e40a46-d1cd-4262-840b-98ebe39abd5e",
+		"name": "Teste Estuda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Escola",
+			"item": [
+				{
+					"name": "Retorna todas as escolas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna determinada escola",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui determinada escola",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra uma nova escola",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Escola Teste 000000\",\r\n    \"endereco\": \"Rua Teste\",\r\n    \"data\": \"2021-01-18\",\r\n    \"situacao\": \"Em atividade\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/escolas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza determinada escola",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"2222222\",\r\n    \"endereco\": \"Rua 123\",\r\n    \"data\": \"2021-01-18\",\r\n    \"situacao\": \"Em atividade\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/escolas/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna as turmas de uma determinada escola",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas/1/turmas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1",
+								"turmas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna a contagem de alunos de uma escola",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas/1/alunos/total",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1",
+								"alunos",
+								"total"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastrar turma em determinada escola",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nivel\": \"Médio\",\r\n    \"turno\": \"Matutino\",\r\n    \"ano\": \"2000\",\r\n    \"serie\": \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/escolas/1/turmas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"1",
+								"turmas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisa na entidade escola",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/escolas/search?field=situacao&value=paralisada",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"escolas",
+								"search"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "situacao"
+								},
+								{
+									"key": "value",
+									"value": "paralisada"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Turma",
+			"item": [
+				{
+					"name": "Retorna todas as turmas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/turmas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna determinada turma",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/turmas/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas",
+								"1"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra nova turma",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nivel\": \"Fundamental\",\r\n    \"turno\": \"Matutino\",\r\n    \"ano\": \"2020\",\r\n    \"serie\": \"1\",\r\n    \"id_escola\": \"51064911\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/turmas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza determinada turma",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nivel\": \"Fundamental\",\r\n    \"turno\": \"Matutino\",\r\n    \"ano\": \"2021\",\r\n    \"serie\": \"5\",\r\n    \"id_escola\": \"51064911\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/turmas/1?XDEBUG_SESSION_START=18393",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas",
+								"1"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui determinada turma",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/turmas/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas",
+								"1"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra um aluno em uma turma",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id_aluno\": 3,\r\n    \"id_turma\": 8\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/turmas/alunos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas",
+								"alunos"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna os alunos de uma determinada turma",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/turmas/3/alunos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"turmas",
+								"3",
+								"alunos"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aluno",
+			"item": [
+				{
+					"name": "Retorna todos os alunos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/alunos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retorna determinado aluno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/alunos/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos",
+								"2"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Exclui determinado aluno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/alunos/1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos",
+								"1"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastra novo aluno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Vinicius 2\",\r\n    \"telefone\": null,\r\n    \"email\": \"vicmen22@gmail.com\",\r\n    \"nascimento\": null,\r\n    \"genero\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/alunos",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza determinado aluno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nome\": \"Vinicius Menezes\",\r\n    \"telefone\": null,\r\n    \"email\": \"vicmen22@gmail.com\",\r\n    \"nascimento\": null,\r\n    \"genero\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/alunos/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos",
+								"2"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retornar turmas de um aluno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/alunos/2/turmas",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos",
+								"2",
+								"turmas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover aluno de uma turma",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/alunos/2/turmas/2",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"alunos",
+								"2",
+								"turmas",
+								"2"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Api Estuda",
+			"item": [
+				{
+					"name": "Pesquisar CEP",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/integracao/cep/78040640?XDEBUG_SESSION_START=18393",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"integracao",
+								"cep",
+								"78040640"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pesquisar escolas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/integracao/escolas?XDEBUG_SESSION_START=18393&q=master&uf=mt",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"integracao",
+								"escolas"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "18393"
+								},
+								{
+									"key": "q",
+									"value": "master"
+								},
+								{
+									"key": "uf",
+									"value": "mt"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
