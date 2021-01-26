@@ -12,6 +12,7 @@ final class Request
     protected string $method;
     protected string $protocol;
     protected array $request = [];
+    protected array $query = [];
 
     /**
      * Request constructor.
@@ -23,6 +24,7 @@ final class Request
         $this->uri = $_REQUEST['URI'] ?? '/';
         $this->method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+        $this->query = $_GET;
         $this->setRequest();
     }
 
@@ -54,6 +56,11 @@ final class Request
             default:
                 $this->request = [];
         }
+    }
+
+    public function query(string $parameter)
+    {
+        return $this->query[$parameter] ?? null;
     }
 
     public function all(): array

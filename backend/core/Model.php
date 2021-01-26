@@ -23,9 +23,19 @@ abstract class Model
         }
     }
 
+    public function set($parameter, $value): void
+    {
+        $this->__set($parameter, $value);
+    }
+
     public function __set($parameter, $value)
     {
         $this->content[$parameter] = $value;
+    }
+
+    public function get($parameter)
+    {
+        return $this->__get($parameter);
     }
 
     public function __get($parameter)
@@ -191,6 +201,11 @@ abstract class Model
         }
 
         throw new RuntimeException("Não há conexão com Banco de dados!");
+    }
+
+    public static function search(string $field, string $value)
+    {
+        return self::all("$field LIKE '%" . $value . "%'");
     }
 
     public static function count(string $fieldName = '*', string $filter = ''): int
