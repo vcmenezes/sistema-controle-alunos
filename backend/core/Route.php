@@ -18,22 +18,42 @@ final class Route
         return self::$router;
     }
 
-    public static function post($pattern, $callback): Router
+    /**
+     * @param string $pattern
+     * @param array|string|callable $callback
+     * @return Router
+     */
+    public static function post(string $pattern, $callback): Router
     {
         return self::getRouter()->post($pattern, $callback);
     }
 
-    public static function get($pattern, $callback): Router
+    /**
+     * @param string $pattern
+     * @param array|string|callable $callback
+     * @return Router
+     */
+    public static function get(string $pattern, $callback): Router
     {
         return self::getRouter()->get($pattern, $callback);
     }
 
-    public static function put($pattern, $callback): Router
+    /**
+     * @param string $pattern
+     * @param array|string|callable $callback
+     * @return Router
+     */
+    public static function put(string $pattern, $callback): Router
     {
         return self::getRouter()->put($pattern, $callback);
     }
 
-    public static function delete($pattern, $callback): Router
+    /**
+     * @param string $pattern
+     * @param array|string|callable $callback
+     * @return Router
+     */
+    public static function delete(string $pattern, $callback): Router
     {
         return self::getRouter()->delete($pattern, $callback);
     }

@@ -8,7 +8,7 @@ use JsonException;
 
 class Response
 {
-    private static ?Response $responseClass = NULL;
+    private static ?Response $responseClass = null;
     protected array $headers = [];
     protected Request $request;
     protected string $content;
@@ -91,7 +91,7 @@ class Response
 
     public static function getInstance($content = '', $status = 200, $headers = [], $charset = 'UTF-8'): Response
     {
-        if (self::$responseClass === NULL) {
+        if (self::$responseClass === null) {
             self::$responseClass = new Response($content, $status, $headers, $charset);
         }
         return self::$responseClass;

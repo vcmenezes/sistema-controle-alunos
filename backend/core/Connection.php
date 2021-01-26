@@ -8,7 +8,7 @@ use RuntimeException;
 
 final class Connection
 {
-    private static ?PDO $connection = NULL;
+    private static ?PDO $connection = null;
 
     /**
      * Singleton: Método construtor privado para impedir classe de gerar instâncias
@@ -48,12 +48,12 @@ final class Connection
      */
     private static function make(array $dados): PDO
     {
-        $sgdb = $dados['sgdb'] ?? NULL;
-        $usuario = $dados['usuario'] ?? NULL;
-        $senha = $dados['senha'] ?? NULL;
-        $banco = $dados['banco'] ?? NULL;
-        $servidor = $dados['servidor'] ?? NULL;
-        $porta = $dados['porta'] ?? NULL;
+        $sgdb = $dados['sgdb'] ?? null;
+        $usuario = $dados['usuario'] ?? null;
+        $senha = $dados['senha'] ?? null;
+        $banco = $dados['banco'] ?? null;
+        $servidor = $dados['servidor'] ?? null;
+        $porta = $dados['porta'] ?? null;
 
         if (!is_null($sgdb) && !is_null($usuario) && !is_null($senha) && !is_null($banco) && !is_null($servidor)) {
             // selecionar banco - criar string de conexão
@@ -89,7 +89,7 @@ final class Connection
      */
     public static function getInstance(string $file): PDO
     {
-        if (self::$connection === NULL) {
+        if (self::$connection === null) {
             // Receber os dados do arquivo
             self::$connection = self::make(self::load($file));
             self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

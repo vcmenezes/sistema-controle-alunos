@@ -1,12 +1,13 @@
 <?php
 
+use App\Controllers\EscolaController;
 use Core\Route;
 
-Route::get('escola', 'EscolaController@index');
-Route::get('escola/{id_escola}', 'EscolaController@show');
-Route::post('escola', 'EscolaController@store');
-Route::put('escola/{id_escola}', 'EscolaController@update');
-Route::delete('escola/{id_escola}', 'EscolaController@delete');
+Route::get('escolas', [EscolaController::class, 'index']);
+Route::get('escolas/{id_escola}', [EscolaController::class, 'show']);
+Route::post('escolas', [EscolaController::class, 'store']);
+Route::put('escolas/{id_escola}', [EscolaController::class, 'update']);
+Route::delete('escolas/{id_escola}', [EscolaController::class, 'delete']);
 
 Route::get('escola/{id_escola}/turma', 'TurmaController@index');
 Route::get('escola/{id_escola}/turma/{id_turma}', 'TurmaController@show');

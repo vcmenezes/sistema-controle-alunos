@@ -7,14 +7,17 @@ use stdClass;
 class RouteCollection
 {
     private static array $routes = array();
-    private static array $names = array();
 
     private function __construct()
     {
-
     }
 
-    public static function add($method, $pattern, $callback, $name = null): void
+    /**
+     * @param string $method
+     * @param string $pattern
+     * @param array|string|callable $callback
+     */
+    public static function add(string $method, string $pattern, $callback): void
     {
         $pattern = implode('/', array_filter(explode('/', $pattern)));
 
@@ -26,49 +29,14 @@ class RouteCollection
         }
 
         self::$routes[$method][$pattern] = $callback;
-
-        if (!is_null($name)) {
-            self::$names[$name] = array($method, $pattern);
-        }
-    }
-
-    public static function name($route, $data = [])
-    {
-        $pattern = self::$names[$route] ?? false;
-
-        if ($pattern) {
-            if (count($data) > 0) {
-                $pattern = self::parse($pattern[1], $data);
-            } else {
-                $pattern = str_replace(["/^", "$/", "\\"], '', $pattern[1]);
-            }
-        }
-        return $pattern;
-    }
-
-    protected static function parse($pattern, $data): string
-    {
-        $result = [];
-        if (preg_match("/[A-Za-z0-9]+/", $pattern, $maches)) {
-            $pattern = explode('/', str_replace(["/^", "$/", "\\"], '', $pattern));
-            $index = 0;
-            foreach ($pattern as $piece) {
-                if (preg_match("/^[\[][A-Za-z0-9]+/", $piece)) {
-                    $result[] = $data[$index++];
-                } else {
-                    $result[] = $piece;
-                }
-            }
-        }
-        return implode('/', $result);
     }
 
     /**
-     * @param $method
-     * @param $path
+     * @param string $method
+     * @param string $path
      * @return false|stdClass
      */
-    public static function find($method, $path)
+    public static function find(string $method, string $path)
     {
         $path = implode('/', array_filter(explode('/', $path)));
 

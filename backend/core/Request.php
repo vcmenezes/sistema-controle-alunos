@@ -6,7 +6,7 @@ use JsonException;
 
 final class Request
 {
-    private static ?Request $requestClass = NULL;
+    private static ?Request $requestClass = null;
     protected $base;
     protected $uri;
     protected string $method;
@@ -26,14 +26,9 @@ final class Request
         $this->setRequest();
     }
 
-    private function __clone()
-    {
-
-    }
-
     public static function getInstance(): Request
     {
-        if (self::$requestClass === NULL) {
+        if (self::$requestClass === null) {
             self::$requestClass = new Request();
         }
         return self::$requestClass;
@@ -44,22 +39,24 @@ final class Request
      */
     protected function setRequest(): void
     {
+        $content = file_get_contents('php://input');
         switch ($this->method) {
             case 'post':
-                $this->request = (array)json_decode(file_get_contents('php://input'), TRUE, 512, JSON_THROW_ON_ERROR);
-                break;
-            case 'get':
-                $this->request = $_GET;
-                break;
             case 'head':
             case 'put':
             case 'delete':
             case 'options':
-                $this->request = (array)json_decode(file_get_contents('php://input'), TRUE, 512, JSON_THROW_ON_ERROR);
+                $this->request = !empty($content) ? (array)json_decode($content, TRUE, 512, JSON_THROW_ON_ERROR) : [];
+                break;
+            case 'get':
+                $this->request = $_GET;
+                break;
+            default:
+                $this->request = [];
         }
     }
 
-    public function getRequest(): array
+    public function all(): array
     {
         return $this->request;
     }
@@ -84,11 +81,18 @@ final class Request
         return $this->get($key);
     }
 
-    public function __set($name, $value)
+    public function set($name, $value)
     {
+        $this->request[$name] = $value;
     }
 
-    public function __isset($name)
+    public function __set($name, $value)
     {
+        $this->set($name, $value);
+    }
+
+    public function __isset($name): bool
+    {
+        return isset($this->request[$name]);
     }
 }

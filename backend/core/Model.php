@@ -8,17 +8,17 @@ use RuntimeException;
 
 abstract class Model
 {
-    private static ?PDO $connection = NULL;
+    private static ?PDO $connection = null;
     private array $content = [];
-    protected ?string $table = NULL;
-    protected ?string $idField = NULL;
+    protected ?string $table = null;
+    protected ?string $idField = null;
 
     public function __construct()
     {
-        if ($this->table === NULL) {
+        if ($this->table === null) {
             $this->table = strtolower(get_class($this));
         }
-        if ($this->idField === NULL) {
+        if ($this->idField === null) {
             $this->idField = 'id';
         }
     }
@@ -61,7 +61,7 @@ abstract class Model
 
     public function fromArray(array $array): void
     {
-        $this->content = $array;
+        $this->content = array_merge($this->content, $array);
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class Model
             return $value;
         }
 
-        return "NULL";
+        return "null";
     }
 
     private function convertContent(): array
@@ -110,7 +110,7 @@ abstract class Model
         return $newContent;
     }
 
-    public function save(): array
+    public function save(): Model
     {
         $newContent = $this->convertContent();
 
@@ -118,6 +118,7 @@ abstract class Model
             $sets = array();
             foreach ($newContent as $key => $value) {
                 if ($key === $this->idField) {
+                    $lastId = $value;
                     continue;
                 }
                 $sets[] = "{$key} = {$value}";
@@ -129,8 +130,9 @@ abstract class Model
         if (self::$connection) {
             $db = self::$connection->prepare($sql);
             $db->execute($newContent);
-            $lastId = self::$connection->lastInsertId();
-            return self::find($lastId);
+            $lastId = $lastId ?? self::$connection->lastInsertId();
+            $this->content = array_merge(['id' => $lastId], $this->content);
+            return $this;
         }
 
         throw new RuntimeException("Não há conexão com Banco de dados!");
@@ -138,9 +140,9 @@ abstract class Model
 
     /**
      * @param $id
-     * @return array
+     * @return Model|false
      */
-    public static function find($id): array
+    public static function find($id)
     {
         $class = static::class;
         $idField = (new $class())->idField;
@@ -153,8 +155,7 @@ abstract class Model
         if (self::$connection) {
             $result = self::$connection->query($sql);
             if ($result) {
-                $res = $result->fetch(PDO::FETCH_ASSOC);
-                return $res !== false ? $res : [];
+                return $result->fetchObject(static::class);
             }
         }
 

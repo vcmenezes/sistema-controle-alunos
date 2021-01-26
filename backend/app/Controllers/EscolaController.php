@@ -3,26 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\Escola;
+use Core\Model;
 use Core\Response;
 use JsonException;
 use Throwable;
 
 class EscolaController
 {
-    private Response $response;
-
-    public function __construct()
-    {
-        $this->response = response();
-    }
-
     /**
      * @throws JsonException
      */
     public function index(): Response
     {
         $escolas = Escola::all();
-        return $this->response->json($escolas)->setStatus(200);
+        return response()->json($escolas)->setStatus(200);
     }
 
     /**
@@ -32,11 +26,11 @@ class EscolaController
      */
     public function show(int $id): Response
     {
-        $escola = Escola::find($id);
-        if (empty($escola)) {
-            return $this->response->setError("Não há registro para o ID: $id")->setStatus(422);
+        $escola = $this->checkIfExist(Escola::class, $id);
+        if ($escola instanceof Response) {
+            return $escola;
         }
-        return $this->response->json($escola)->setStatus(200);
+        return response()->json($escola->toArray())->setStatus(200);
     }
 
     /**
@@ -46,14 +40,12 @@ class EscolaController
      */
     public function store(): Response
     {
+        // TODO - Validar input
         try {
             $escola = new Escola();
-            $escola->nome = request()->get('nome');
-            $escola->endereco = request()->get('endereco');
-            $escola->data = request()->get('data');
-            $escola->situacao = request()->get('situacao');
-            $newEscola = $escola->save();
-            return $this->response->json($newEscola)->setStatus(201);
+            $escola->fromArray(request()->all());
+            $escola->save();
+            return response()->json($escola->toArray())->setStatus(201);
         } catch (Throwable $exception) {
             throw $exception;
         }
@@ -66,29 +58,41 @@ class EscolaController
      */
     public function update(int $id): Response
     {
-        $escola = Escola::find($id);
-        if (empty($escola)) {
-            return $this->response->setError("Não há registro para o ID: $id")->setStatus(422);
+        $escola = $this->checkIfExist(Escola::class, $id);
+        if ($escola instanceof Response) {
+            return $escola;
         }
 
-        $escola = new Escola();
-        $escola->id = $id;
-        $escola->nome = request()->get('nome');
-        $escola->endereco = request()->get('endereco');
-        $escola->data = request()->get('data');
-        $escola->situacao = request()->get('situacao');
-        $updatedEscola = $escola->save();
-        return $this->response->json($updatedEscola)->setStatus(200);
+        $escola->fromArray(request()->all());
+        $escola->save();
+
+        return response()->json($escola->toArray())->setStatus(200);
     }
 
     public function delete(int $id)
     {
-        $escola = Escola::find($id);
-        if (empty($escola)) {
-            return $this->response->setError("Não há registro para o ID: $id")->setStatus(422);
+        $escola = $this->checkIfExist(Escola::class, $id);
+        if ($escola instanceof Response) {
+            return $escola;
         }
-        $escola = new Escola();
-        $escola->id = $id;
-        return $escola->delete();
+        $escola->delete();
+
+        return response()->setStatus(204);
+    }
+
+    /**
+     * @param $modelClass
+     * @param int $id
+     * @return Model|Response
+     */
+    private function checkIfExist(string $modelClass, int $id)
+    {
+        /** @var Model $model */
+        $model = new $modelClass;
+        $found = $model::find($id);
+        if (empty($found) || $found === false) {
+            return response()->setError("Não há registro para o ID: $id")->setStatus(422);
+        }
+        return $found;
     }
 }
